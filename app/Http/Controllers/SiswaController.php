@@ -45,4 +45,11 @@ class SiswaController extends Controller
         return redirect()->route('siswa');
     }
 
+    public function edit($id)
+    {
+        $data = Student::findOrFail($id);
+
+        return view('edit-siswa', compact('data'));
+    }
+
 }
