@@ -47,8 +47,10 @@ class SiswaController extends Controller
 
     public function edit($id)
     {
+        // menemukan siswa berdasarkan id
         $data = Student::findOrFail($id);
 
+        // mengirimkan data sesuai id ke view
         return view('edit-siswa', compact('data'));
     }
 
