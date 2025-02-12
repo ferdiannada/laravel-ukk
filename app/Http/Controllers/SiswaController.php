@@ -11,6 +11,7 @@ class SiswaController extends Controller
     public function index()
     {
         $siswa = Student::all();
+        // dd($siswa);
         return view('siswa', compact('siswa'));
     }
 
@@ -21,6 +22,16 @@ class SiswaController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+        ], [
+            'nama.required' => "Kolom nama harus di isi",
+            'alamat.required' => "Kolom alamat harus di isi",
+            'jenis_kelamin.required' => "Kolom jenis_kelamin harus di isi"
+        ]);
+
         // untuk menyimpan data siswa
         // data yang di simpan adalah nama, alamat dan jenis kelamin
         $data = Student::create([
@@ -28,7 +39,6 @@ class SiswaController extends Controller
             'alamat' => $request->alamat,
             'jenis_kelamin' => $request->jenis_kelamin,
         ]);
-
         // mengarahkan kembali ke halaman siswa setelah berhasil simpan data
         return redirect()->route('siswa');
 
@@ -61,7 +71,7 @@ class SiswaController extends Controller
         $data->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'jenis_kelamin' => $request->jenis_kelamin
+            'jenis_kelamin' => $request->jenis_kelamin,
         ]);
 
         return redirect()->route('siswa');
